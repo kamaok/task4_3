@@ -21,7 +21,7 @@ fi
 
 [ -d "${DEST_DIR}" ] || mkdir -p "${DEST_DIR}"
 
-FILE_NAME=$(echo "${SOURCE_DIR}" | sed 's|/||' | sed 's|/|-|g')
+FILE_NAME=$(echo "${SOURCE_DIR}" | sed 's|^/||' | sed 's|/$||g' | sed 's|/|-|g')
 $TAR -czf  ${DEST_DIR}/${FILE_NAME}-$DATE.tar.gz "${SOURCE_DIR}" > /dev/null 2>&1
 
 CURRENT_COUNTER=$(ls -l /tmp/backups/ | awk '{print $9}' | sed '1d' | grep ${FILE_NAME} | wc -l)
